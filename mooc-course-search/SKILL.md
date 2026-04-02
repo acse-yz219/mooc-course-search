@@ -1,13 +1,13 @@
 ---
 name: mooc-course-search
-description: 中国大学 MOOC 课程搜索与推荐服务。适用于找课、课程对比、按学习目标筛课、关注证书与评价等场景。关键词：MOOC、慕课、课程推荐、课程对比、证书、考研、机器学习、高等数学。
+description: MOOC 课程搜索与推荐服务。适用于找课、课程对比、按学习目标筛课、关注证书与评价等场景。关键词：MOOC、慕课、课程推荐、课程对比、证书、考研、机器学习、高等数学。
 version: 1.0.0
 official: false
 ---
 
 # MOOC Course Search
 
-用于搜索中国大学 MOOC 课程，并基于用户目标输出可执行的选课建议。
+用于搜索 MOOC 课程，并基于用户目标输出可执行的选课建议。
 
 ## When to Use This Skill
 
@@ -42,7 +42,7 @@ official: false
 默认使用以下接口进行课程搜索：
 
 ```bash
-curl --location "$MOOC_SEARCH_API" \
+curl --location "https://mcp.study.youdao.com/public/mm-course/course/search" \
   --header "Content-Type: application/json" \
   --data '{
     "queryList": ["高等数学", "微积分", "考研数学"]
@@ -52,7 +52,7 @@ curl --location "$MOOC_SEARCH_API" \
 课程详情查询接口（仅在用户明确想进一步了解某门课程时调用，入参来自上一步搜索结果中的 `courseId` 和 `termId`）：
 
 ```bash
-curl --location "$MOOC_DETAIL_API" \
+curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
   --header "Content-Type: application/json" \
   --data '{
     "courseId": 1207108809,
@@ -73,10 +73,10 @@ curl --location "$MOOC_DETAIL_API" \
 
 ### Timeout & Retry
 
-| Operation                                                  | Expected Time | Recommended Timeout | Notes  |
-| ---------------------------------------------------------- | ------------- | ------------------- | ------ |
-| Course Search (`/public/mm-course/course/search`)           | 5-20s         | 30s                 | 常规课程检索 |
-| Course Detail (`/public/mm-course/course/detail`)          | 5-15s         | 30s                 | 课程详情补全 |
+| Operation                                         | Expected Time | Recommended Timeout | Notes  |
+| ------------------------------------------------- | ------------- | ------------------- | ------ |
+| Course Search (`/public/mm-course/course/search`) | 5-20s         | 30s                 | 常规课程检索 |
+| Course Detail (`/public/mm-course/course/detail`) | 5-15s         | 30s                 | 课程详情补全 |
 
 重试策略（仅瞬时错误）：
 
@@ -88,20 +88,12 @@ curl --location "$MOOC_DETAIL_API" \
 不重试场景：
 
 - 参数错误或请求体不合法
-- 鉴权失败（token 缺失或无效）
+- 认证失败（访问凭证缺失、无效或已过期）
 
-## Configuration
+## Endpoint Configuration
 
-建议配置：
-
-- `MOOC_SEARCH_API`: `https://mcp.study.youdao.com/public/mm-course/course/search`
-- `MOOC_DETAIL_API`: `https://mcp.study.youdao.com/public/mm-course/course/detail`
-
-配置优先级（高到低）：
-
-1. 环境变量
-2. skill 配置
-3. 默认值
+- Course Search（写死）: `https://mcp.study.youdao.com/public/mm-course/course/search`
+- Course Detail（写死）: `https://mcp.study.youdao.com/public/mm-course/course/detail`
 
 ## Output Requirements
 
@@ -127,12 +119,11 @@ curl --location "$MOOC_DETAIL_API" \
 
 - `200`: 正常解析并输出推荐
 - `400`: 提示用户优化查询词或参数
-- `401/403`: 提示鉴权失败并检查 token
 - `404`: 提示资源不存在并建议更换关键词
 - `500/503/504`: 按重试策略处理，失败后给出降级建议
 
 ## Security Constraints
 
-- 不在回复中明文输出长期有效 token
-- 不将 token 写入仓库文件或日志
+- 不在回复中明文输出长期有效访问凭证
+- 不将访问凭证写入仓库文件或日志
 - 仅展示与用户问题相关的最小必要信息
