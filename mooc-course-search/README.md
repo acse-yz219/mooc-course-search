@@ -1,6 +1,6 @@
 # mooc-course-search
 
-中国大学 MOOC 课程搜索与推荐 Skill。用于根据用户提问生成多检索词搜索课程，并在需要时补充课程详情，最终输出可执行的选课建议。
+MOOC 课程搜索与推荐 Skill。用于根据用户提问生成多检索词搜索课程，并在需要时补充课程详情，最终输出可执行的选课建议。
 
 ## 版本信息
 
@@ -111,3 +111,4 @@ curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
 - 不在回复中明文输出长期有效访问凭证
 - 不将访问凭证写入仓库文件或日志
 - 仅展示与用户问题相关的最小必要信息
+
