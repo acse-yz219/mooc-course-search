@@ -96,8 +96,8 @@ curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
 
 ## 接口地址
 
-- 课程搜索接口（写死）：`https://mcp.study.youdao.com/public/mm-course/course/search`
-- 课程详情接口（写死）：`https://mcp.study.youdao.com/public/mm-course/course/detail`
+- 课程搜索接口：`https://mcp.study.youdao.com/public/mm-course/course/search`
+- 课程详情接口：`https://mcp.study.youdao.com/public/mm-course/course/detail`
 
 ## 错误处理建议
 
