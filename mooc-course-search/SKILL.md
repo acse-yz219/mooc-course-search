@@ -1,7 +1,7 @@
 ---
 name: mooc-course-search
 description: MOOC 课程搜索与推荐服务。适用于找课、课程对比、按学习目标筛课、关注证书与评价等场景。关键词：MOOC、慕课、课程推荐、课程对比、证书、考研、机器学习、高等数学。
-version: 1.0.0
+version: 1.0.4
 official: false
 ---
 
@@ -63,7 +63,7 @@ curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
 ### Runtime Rules
 
 - API 调用应等待服务端完成并返回结果后再继续处理
-- 搜索接口请求体使用 `queryList`，不再使用单一 `query`
+- 搜索接口请求体使用 `queryList`
 - 根据用户提问自动生成搜索词列表，默认约 3 个，最多不超过 5 个
 - `queryList` 内搜索词应去重，并覆盖同义词/近义表达（如“机器学习/机器学习入门”）
 - 仅当用户表达“想进一步了解某门课”时调用课程详情接口

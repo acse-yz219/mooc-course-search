@@ -5,7 +5,7 @@ MOOC 课程搜索与推荐 Skill。用于根据用户提问生成多检索词搜
 ## 版本信息
 
 - name: `mooc-course-search`
-- version: `1.0.0`
+- version: `1.0.4`
 - official: `false`
 
 ## 适用场景
