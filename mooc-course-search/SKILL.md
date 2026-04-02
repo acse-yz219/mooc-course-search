@@ -92,8 +92,8 @@ curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
 
 ## Endpoint Configuration
 
-- Course Search（写死）: `https://mcp.study.youdao.com/public/mm-course/course/search`
-- Course Detail（写死）: `https://mcp.study.youdao.com/public/mm-course/course/detail`
+- Course Search: `https://mcp.study.youdao.com/public/mm-course/course/search`
+- Course Detail: `https://mcp.study.youdao.com/public/mm-course/course/detail`
 
 ## Output Requirements
 
