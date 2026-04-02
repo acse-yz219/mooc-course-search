@@ -33,7 +33,7 @@
 示例：
 
 ```bash
-curl --location "$MOOC_SEARCH_API" \
+curl --location "https://mcp.study.youdao.com/public/mm-course/course/search" \
   --header "Content-Type: application/json" \
   --data '{
     "queryList": ["高等数学", "微积分", "考研数学"]
@@ -50,7 +50,7 @@ curl --location "$MOOC_SEARCH_API" \
 示例：
 
 ```bash
-curl --location "$MOOC_DETAIL_API" \
+curl --location "https://mcp.study.youdao.com/public/mm-course/course/detail" \
   --header "Content-Type: application/json" \
   --data '{
     "courseId": 1207108809,
@@ -77,10 +77,10 @@ curl --location "$MOOC_DETAIL_API" \
 
 ## 超时与重试
 
-| Operation | Expected Time | Recommended Timeout | Notes |
-|---|---|---|---|
-| Course Search (`/public/mm-course/course/search`) | 5-20s | 30s | 常规课程检索 |
-| Course Detail (`/public/mm-course/course/detail`) | 5-15s | 30s | 课程详情补全 |
+| Operation                                         | Expected Time | Recommended Timeout | Notes  |
+| ------------------------------------------------- | ------------- | ------------------- | ------ |
+| Course Search (`/public/mm-course/course/search`) | 5-20s         | 30s                 | 常规课程检索 |
+| Course Detail (`/public/mm-course/course/detail`) | 5-15s         | 30s                 | 课程详情补全 |
 
 重试策略（仅瞬时错误）：
 
@@ -92,29 +92,22 @@ curl --location "$MOOC_DETAIL_API" \
 不重试场景：
 
 - 参数错误或请求体不合法
-- 鉴权失败（token 缺失或无效）
+- 认证失败（访问凭证缺失、无效或已过期）
 
-## 配置
+## 接口地址
 
-- `MOOC_SEARCH_API`: `https://mcp.study.youdao.com/public/mm-course/course/search`
-- `MOOC_DETAIL_API`: `https://mcp.study.youdao.com/public/mm-course/course/detail`
-
-配置优先级（高到低）：
-
-1. 环境变量
-2. skill 配置
-3. 默认值
+- 课程搜索接口（写死）：`https://mcp.study.youdao.com/public/mm-course/course/search`
+- 课程详情接口（写死）：`https://mcp.study.youdao.com/public/mm-course/course/detail`
 
 ## 错误处理建议
 
 - `200`：正常解析并输出推荐
 - `400`：提示优化检索词或参数
-- `401/403`：提示鉴权失败并检查 token
 - `404`：提示资源不存在并建议更换关键词
 - `500/503/504`：按重试策略处理，失败后给出降级建议
 
 ## 安全约束
 
-- 不在回复中明文输出长期有效 token
-- 不将 token 写入仓库文件或日志
+- 不在回复中明文输出长期有效访问凭证
+- 不将访问凭证写入仓库文件或日志
 - 仅展示与用户问题相关的最小必要信息
